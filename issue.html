@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Library Management System - Issue Book</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #172033;
+        }
+
+        /* ================= LAYOUT ================= */
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            width: 300px;
+            min-height: 100vh;
+            background: #063e91;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        /* ================= LIBRARY ================= */
+
+        .library-logo {
+            height: 110px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .book-icon {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+        }
+
+        .library-logo h2 {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .library-logo p {
+            font-size: 11px;
+            margin-top: 3px;
+            opacity: 0.85;
+            letter-spacing: 1px;
+        }
+
+        /* ================= MENU ================= */
+
+        .sidebar-menu {
+            padding: 25px 15px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+
+            height: 52px;
+
+            padding: 0 20px;
+            margin-bottom: 7px;
+
+            color: white;
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            transition: 0.3s;
+        }
+
+        .menu-item i {
+            width: 30px;
+            font-size: 17px;
+        }
+
+        .menu-item span {
+            margin-left: 5px;
+        }
+
+        .menu-item:hover {
+            background: #0958cf;
+        }
+
+        /* ISSUE BOOK ACTIVE */
+
+        .menu-item.active {
+            background: #0862e9;
+        }
+
+        .menu-item.logout {
+            margin-top: 25px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main-content {
+            flex: 1;
+            padding: 50px;
+            background: #fff;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 1160px;
+            margin: 0 auto;
+        }
+
+        .page h1 {
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 27px;
+        }
+
+        /* ================= BREADCRUMB ================= */
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            color: #2563eb;
+            font-size: 18px;
+            font-weight: 600;
+
+            margin-bottom: 48px;
+        }
+
+        .breadcrumb b {
+            color: #777;
+            font-size: 23px;
+            font-weight: 400;
+        }
+
+        /* ================= CONTENT ================= */
+
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1.42fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #eef1f6;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(25,45,80,.06);
+        }
+
+        /* ================= FORM ================= */
+
+        .form-card {
+            padding: 42px 36px 38px;
+        }
+
+        .field {
+            margin-bottom: 34px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 19px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 17px;
+        }
+
+        .field em {
+            color: #c21f35;
+            font-style: normal;
+        }
+
+        .select-box {
+            position: relative;
+        }
+
+        select,
+        input[type="date"] {
+            width: 100%;
+            height: 58px;
+
+            border: 1px solid #edf0f4;
+            border-radius: 5px;
+
+            background: #fff;
+
+            padding: 0 20px;
+
+            font-size: 17px;
+            color: #6b7280;
+
+            outline: none;
+        }
+
+        select {
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .select-box::after {
+            content: "⌄";
+
+            position: absolute;
+            right: 20px;
+            top: 10px;
+
+            font-size: 28px;
+            color: #111827;
+
+            pointer-events: none;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .buttons {
+            display: flex;
+            gap: 27px;
+            margin-top: 52px;
+        }
+
+        button {
+            height: 64px;
+            border-radius: 7px;
+
+            font-size: 19px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .issue-btn {
+            width: 340px;
+
+            border: none;
+
+            color: #fff;
+            background: #0d5be8;
+        }
+
+        .reset-btn {
+            width: 285px;
+
+            border: 1px solid #eef0f3;
+
+            background: #fff;
+            color: #111827;
+        }
+
+        /* ================= BOOK INFORMATION ================= */
+
+        .info-card {
+            padding: 48px 43px;
+            min-height: 620px;
+        }
+
+        .info-card h2 {
+            color: #0d2e67;
+
+            font-size: 26px;
+            font-weight: 700;
+
+            margin-bottom: 61px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+
+            font-size: 18px;
+            margin-bottom: 34px;
+        }
+
+        .info-row span {
+            color: #374151;
+        }
+
+        .info-row strong {
+            color: #6b7280;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:850px) {
+
+            .sidebar {
+                width: 230px;
+            }
+
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 30px;
+            }
+
+            .info-card {
+                min-height: auto;
+            }
+        }
+
+        @media(max-width:560px) {
+
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .page h1 {
+                font-size: 29px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 14px;
+                margin-top: 35px;
+            }
+
+            .issue-btn,
+            .reset-btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="layout">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <!-- LIBRARY -->
+
+        <div class="library-logo">
+
+            <div class="book-icon">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+
+            <div>
+                <h2>LIBRARY</h2>
+                <p>MANAGEMENT SYSTEM</p>
+            </div>
+
+        </div>
+
+
+        <!-- MENU -->
+
+        <nav class="sidebar-menu">
+
+            <a href="dash.html" class="menu-item">
+                <i class="fa-solid fa-book"></i>
+                <span>Books</span>
+            </a>
+
+            <a href="yyyy.html" class="menu-item">
+                <i class="fa-solid fa-users"></i>
+                <span>Members</span>
+            </a>
+
+            <!-- ISSUE BOOK ACTIVE -->
+
+            <a href="issue.html" class="menu-item active">
+                <i class="fa-solid fa-book-medical"></i>
+                <span>Issue Book</span>
+            </a>
+
+            <a href="Return.html" class="menu-item">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span>Return Book</span>
+            </a>
+
+            <a href="categories.html" class="menu-item">
+                <i class="fa-solid fa-folder"></i>
+                <span>Categories</span>
+            </a>
+
+            <a href="reports.html" class="menu-item">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Reports</span>
+            </a>
+
+            <a href="setting.html" class="menu-item">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+            <a href="logout.html" class="menu-item logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ================= ISSUE BOOK ================= -->
+
+    <main class="main-content">
+
+        <div class="page">
+
+            <h1>Issue Book</h1>
+
+            <div class="breadcrumb">
+                <span>Library</span>
+                <b>›</b>
+                <span>Issue Book</span>
+            </div>
+
+
+            <div class="content-layout">
+
+                <!-- FORM -->
+
+                <div class="card form-card">
+
+                    <div class="field">
+
+                        <label>
+                            Select Member <em>*</em>
+                        </label>
+
+                        <div class="select-box">
+
+                            <select id="member">
+
+                                <option value="">
+                                    Select member
+                                </option>
+
+                                <option>
+                                    Ali Khan
+                                </option>
+
+                                <option>
+                                    Umar Khalil
+                                </option>
+
+                                <option>
+                                    Ahmed Raza
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Select Book <em>*</em>
+                        </label>
+
+                        <div class="select-box">
+
+                            <select id="book">
+
+                                <option value="">
+                                    Select book
+                                </option>
+
+                                <option value="Clean Code">
+                                    Clean Code
+                                </option>
+
+                                <option value="Atomic Habits">
+                                    Atomic Habits
+                                </option>
+
+                                <option value="The Alchemist">
+                                    The Alchemist
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Issue Date <em>*</em>
+                        </label>
+
+                        <input type="date" id="issueDate">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Due Date <em>*</em>
+                        </label>
+
+                        <input type="date" id="dueDate">
+
+                    </div>
+
+
+                    <div class="buttons">
+
+                        <button class="issue-btn" id="issueBtn">
+                            Issue Book
+                        </button>
+
+                        <button class="reset-btn" id="resetBtn">
+                            Reset
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BOOK INFORMATION -->
+
+                <div class="card info-card">
+
+                    <h2>Book Information</h2>
+
+                    <div class="info-row">
+                        <span>Book Title</span>
+                        <strong id="title">-</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Author</span>
+                        <strong id="author">-</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>ISBN</span>
+                        <strong id="isbn">-</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Available Copies</span>
+                        <strong id="copies">-</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    /* ================= BOOK DATA ================= */
+
+    const book = document.getElementById("book");
+
+    const data = {
+
+        "Clean Code": [
+            "Robert C. Martin",
+            "9780132350884",
+            "5"
+        ],
+
+        "Atomic Habits": [
+            "James Clear",
+            "9780735211292",
+            "8"
+        ],
+
+        "The Alchemist": [
+            "Paulo Coelho",
+            "9780062315007",
+            "3"
+        ]
+
+    };
+
+
+    /* ================= BOOK CHANGE ================= */
+
+    book.onchange = () => {
+
+        let x = data[book.value] || ["-", "-", "-"];
+
+        document.getElementById("title").innerText =
+            book.value || "-";
+
+        document.getElementById("author").innerText =
+            x[0];
+
+        document.getElementById("isbn").innerText =
+            x[1];
+
+        document.getElementById("copies").innerText =
+            x[2];
+
+    };
+
+
+    /* ================= RESET ================= */
+
+    document.getElementById("resetBtn").onclick = () => {
+
+        document
+            .querySelectorAll("select,input")
+            .forEach(x => x.value = "");
+
+        document
+            .querySelectorAll(".info-row strong")
+            .forEach(x => x.innerText = "-");
+
+    };
+
+
+    /* ================= ISSUE ================= */
+
+    document.getElementById("issueBtn").onclick = () => {
+
+        let member =
+            document.getElementById("member").value;
+
+        if (!member || !book.value) {
+
+            alert("Please select member and book.");
+
+            return;
+        }
+
+        alert("Book Issued Successfully!");
+
+    };
+
+</script>
+
+</body>
+</html>

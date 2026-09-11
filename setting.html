@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff;
+            color: #111827;
+        }
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 325px;
+            min-height: 100vh;
+            background: #063b91;
+            padding: 35px 25px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+
+        /* LIBRARY */
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 58px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+
+            border: 2px solid white;
+            border-radius: 5px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+        }
+
+        .logo h2 {
+            font-size: 21px;
+            letter-spacing: 1px;
+        }
+
+        .logo p {
+            font-size: 8px;
+            font-weight: bold;
+            margin-top: 3px;
+        }
+
+
+        /* MENU */
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu a {
+            height: 57px;
+
+            padding: 0 17px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 17px;
+
+            text-decoration: none;
+
+            color: white;
+
+            border-radius: 7px;
+
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .menu a:hover {
+            background: #0969ef;
+        }
+
+        .menu a.active {
+            background: #0969ef;
+        }
+
+        .icon {
+            width: 28px;
+            text-align: center;
+            font-size: 23px;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            flex: 1;
+            min-height: 100vh;
+
+            padding: 42px 55px;
+        }
+
+
+        /* TITLE */
+
+        h1 {
+            font-size: 34px;
+            color: #071b4e;
+
+            margin-bottom: 27px;
+        }
+
+
+        /* BREADCRUMB */
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            color: #075fe8;
+
+            font-size: 18px;
+            font-weight: 600;
+
+            margin-bottom: 43px;
+        }
+
+        .breadcrumb b {
+            color: #555;
+            font-size: 23px;
+        }
+
+
+        /* =========================
+           PROFILE CARD
+        ========================= */
+
+        .profile-card {
+            width: 100%;
+            min-height: 650px;
+
+            border: 1px solid #edf0f5;
+
+            border-radius: 10px;
+
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .04);
+
+            display: grid;
+
+            grid-template-columns: 38% 62%;
+
+            padding: 48px;
+        }
+
+
+        /* =========================
+           LEFT PROFILE
+        ========================= */
+
+        .profile-left {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            padding-top: 80px;
+        }
+
+        .profile-image {
+            width: 285px;
+            height: 285px;
+
+            border-radius: 50%;
+
+            background: #a9d2ff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            overflow: hidden;
+
+            margin-bottom: 25px;
+        }
+
+        .avatar {
+            font-size: 150px;
+        }
+
+        .profile-left h2 {
+            font-size: 30px;
+
+            color: #071b4e;
+
+            margin-bottom: 8px;
+        }
+
+        .profile-left p {
+            font-size: 21px;
+
+            color: #555;
+
+            margin-bottom: 42px;
+        }
+
+        .profile-email {
+            font-size: 18px;
+
+            color: #4b5563;
+        }
+
+
+        /* =========================
+           RIGHT FORM
+        ========================= */
+
+        .profile-right {
+            padding: 0 20px;
+        }
+
+        .field {
+            margin-bottom: 30px;
+        }
+
+        .field label {
+            display: block;
+
+            font-size: 19px;
+
+            font-weight: 700;
+
+            margin-bottom: 15px;
+        }
+
+        .field input {
+            width: 100%;
+
+            height: 60px;
+
+            border: 1px solid #e6e9ee;
+
+            border-radius: 5px;
+
+            padding: 0 22px;
+
+            font-size: 18px;
+
+            color: #374151;
+
+            outline: none;
+
+            background: white;
+        }
+
+        .field input:focus {
+            border-color: #1464e8;
+        }
+
+
+        /* =========================
+           CHANGE PASSWORD
+        ========================= */
+
+        .change-password {
+            display: block;
+
+            text-align: right;
+
+            color: #075fe8;
+
+            font-size: 18px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            margin-top: 5px;
+        }
+
+        .change-password:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           UPDATE BUTTON
+        ========================= */
+
+        .update-btn {
+            display: block;
+
+            width: 350px;
+            height: 65px;
+
+            margin: 58px auto 0;
+
+            border: 0;
+
+            border-radius: 7px;
+
+            background: #0864e8;
+
+            color: white;
+
+            font-size: 19px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow: 0 4px 10px rgba(8, 100, 232, .20);
+        }
+
+        .update-btn:hover {
+            background: #0756c9;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width: 1000px) {
+
+            .sidebar {
+                width: 260px;
+            }
+
+            .main {
+                padding: 35px 25px;
+            }
+
+            .profile-card {
+                grid-template-columns: 1fr;
+
+                padding: 35px 25px;
+            }
+
+            .profile-left {
+                padding-top: 10px;
+
+                margin-bottom: 45px;
+            }
+
+            .profile-right {
+                padding: 0;
+            }
+
+        }
+
+
+        @media(max-width: 700px) {
+
+            .container {
+                display: block;
+            }
+
+            .sidebar {
+                width: 100%;
+
+                min-height: auto;
+
+                padding: 25px 20px;
+            }
+
+            .logo {
+                margin-bottom: 25px;
+            }
+
+            .menu {
+                display: grid;
+
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .menu a {
+                font-size: 14px;
+            }
+
+            .main {
+                padding: 25px 18px;
+            }
+
+        }
+
+
+        @media(max-width: 550px) {
+
+            .menu {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+
+            .breadcrumb {
+                font-size: 15px;
+
+                margin-bottom: 30px;
+            }
+
+            .profile-card {
+                padding: 25px 18px;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .avatar {
+                font-size: 100px;
+            }
+
+            .profile-left h2 {
+                font-size: 26px;
+            }
+
+            .profile-left p {
+                font-size: 18px;
+            }
+
+            .field label {
+                font-size: 17px;
+            }
+
+            .field input {
+                height: 55px;
+
+                font-size: 16px;
+            }
+
+            .update-btn {
+                width: 100%;
+
+                margin-top: 40px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- =========================
+         LIBRARY SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                📖
+            </div>
+
+            <div>
+                <h2>LIBRARY</h2>
+                <p>MANAGEMENT SYSTEM</p>
+            </div>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="#">
+                <span class="icon">▦</span>
+                Books
+            </a>
+
+            <a href="yyyy.html">
+                <span class="icon">♧</span>
+                Members
+            </a>
+
+            <a href="issue.html">
+                <span class="icon">♧</span>
+                Issue Book
+            </a>
+
+            <a href="Return.html">
+                <span class="icon">↶</span>
+                Return Book
+            </a>
+
+            <a href="#">
+                <span class="icon">▣</span>
+                Categories
+            </a>
+
+            <a href="#">
+                <span class="icon">♙</span>
+                Reports
+            </a>
+
+            <a href="setting.html" class="active">
+                <span class="icon">⚙</span>
+                Settings
+            </a>
+
+            <a href="#">
+                <span class="icon">◉</span>
+                Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main">
+
+        <h1>My Profile</h1>
+
+
+        <div class="breadcrumb">
+
+            <span>Settings</span>
+
+            <b>›</b>
+
+            <span>Profile</span>
+
+        </div>
+
+
+
+        <!-- PROFILE CARD -->
+
+        <div class="profile-card">
+
+
+            <!-- LEFT -->
+
+            <div class="profile-left">
+
+                <div class="profile-image">
+
+                    <div class="avatar">
+                        👨🏻
+                    </div>
+
+                </div>
+
+                <h2>Admin</h2>
+
+                <p>Librarian</p>
+
+                <div class="profile-email">
+                    admin@library.com
+                </div>
+
+            </div>
+
+
+
+            <!-- RIGHT -->
+
+            <div class="profile-right">
+
+
+                <div class="field">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        value="Admin"
+                    >
+
+                </div>
+
+
+
+                <div class="field">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        value="admin@library.com"
+                    >
+
+                </div>
+
+
+
+                <div class="field">
+
+                    <label>
+                        Phone
+                    </label>
+
+                    <input
+                        type="text"
+                        value="123-456-7890"
+                    >
+
+                </div>
+
+
+
+                <div class="field">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        value="admin123456"
+                    >
+
+                </div>
+
+
+
+                <a href="#" class="change-password">
+                    Change Password
+                </a>
+
+
+
+                <button
+                    type="button"
+                    class="update-btn"
+                >
+                    Update Profile
+                </button>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

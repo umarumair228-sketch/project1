@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Return Book</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#fff;
+    color:#111827;
+}
+
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:325px;
+    min-height:100vh;
+    background:#063b91;
+    padding:35px 25px;
+    color:#fff;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin-bottom:58px;
+}
+
+.logo-icon{
+    width:48px;
+    height:48px;
+    border:2px solid white;
+    border-radius:5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+}
+
+.logo h2{
+    font-size:21px;
+    letter-spacing:1px;
+}
+
+.logo p{
+    font-size:8px;
+    font-weight:bold;
+    margin-top:3px;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.menu a{
+    height:57px;
+    padding:0 17px;
+    display:flex;
+    align-items:center;
+    gap:17px;
+    text-decoration:none;
+    color:#fff;
+    border-radius:7px;
+    font-size:17px;
+    font-weight:600;
+}
+
+.menu a.active{
+    background:#0969ef;
+}
+
+.menu a:hover{
+    background:#0969ef;
+}
+
+.icon{
+    width:28px;
+    text-align:center;
+    font-size:23px;
+}
+
+
+/* MAIN */
+.main{
+    flex:1;
+    padding:48px 42px;
+}
+
+h1{
+    color:#071c52;
+    font-size:34px;
+    margin-bottom:25px;
+}
+
+.breadcrumb{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#075fe8;
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:40px;
+}
+
+.breadcrumb b{
+    color:#777;
+    font-size:22px;
+}
+
+
+/* CONTENT */
+.content{
+    display:grid;
+    grid-template-columns:1.35fr 1fr;
+    gap:24px;
+}
+
+.card{
+    background:#fff;
+    border:1px solid #edf0f5;
+    border-radius:10px;
+    box-shadow:0 2px 12px rgba(0,0,0,.04);
+}
+
+
+/* LEFT FORM */
+.form-card{
+    padding:38px 35px;
+    min-height:720px;
+}
+
+.field{
+    margin-bottom:31px;
+}
+
+label{
+    display:block;
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.required{
+    color:#c21e3a;
+}
+
+.select-box{
+    position:relative;
+}
+
+select,
+input[type="date"]{
+    width:100%;
+    height:58px;
+    border:1px solid #e7eaf0;
+    border-radius:5px;
+    padding:0 20px;
+    font-size:17px;
+    color:#6b7280;
+    background:#fff;
+    outline:none;
+}
+
+select{
+    appearance:none;
+    cursor:pointer;
+}
+
+.select-box::after{
+    content:"⌄";
+    position:absolute;
+    right:20px;
+    top:10px;
+    font-size:28px;
+    color:#111;
+    pointer-events:none;
+}
+
+
+/* BUTTONS */
+.buttons{
+    display:flex;
+    gap:28px;
+    margin-top:205px;
+}
+
+button{
+    height:64px;
+    border-radius:7px;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.return-btn{
+    width:275px;
+    background:#0864e8;
+    color:#fff;
+    border:none;
+    box-shadow:0 4px 10px rgba(8,100,232,.2);
+}
+
+.reset-btn{
+    width:260px;
+    background:#fff;
+    color:#111827;
+    border:1px solid #e5e7eb;
+}
+
+
+/* BOOK INFORMATION */
+.info-card{
+    padding:40px 42px;
+    min-height:540px;
+}
+
+.info-card h2{
+    color:#0b2d6a;
+    font-size:26px;
+    margin-bottom:62px;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:31px;
+    font-size:18px;
+    gap:20px;
+}
+
+.info-row span{
+    color:#374151;
+}
+
+.info-row strong{
+    color:#6b7280;
+    font-weight:500;
+    text-align:right;
+}
+
+#fine{
+    color:#08a56c;
+    font-weight:700;
+}
+
+
+/* RESPONSIVE */
+@media(max-width:950px){
+
+    .sidebar{
+        width:240px;
+    }
+
+    .main{
+        padding:35px 25px;
+    }
+
+    .content{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:700px){
+
+    .container{
+        display:block;
+    }
+
+    .sidebar{
+        width:100%;
+        min-height:auto;
+        padding:20px;
+    }
+
+    .logo{
+        margin-bottom:20px;
+    }
+
+    .menu{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .menu a{
+        font-size:14px;
+    }
+
+    .main{
+        padding:25px 18px;
+    }
+
+    .form-card{
+        min-height:auto;
+    }
+
+    .buttons{
+        margin-top:60px;
+        flex-direction:column;
+    }
+
+    .return-btn,
+    .reset-btn{
+        width:100%;
+    }
+}
+
+@media(max-width:450px){
+
+    .menu{
+        grid-template-columns:1fr;
+    }
+
+    h1{
+        font-size:29px;
+    }
+
+    .breadcrumb{
+        font-size:15px;
+    }
+
+    .form-card,
+    .info-card{
+        padding:25px 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">📖</div>
+
+        <div>
+            <h2>LIBRARY</h2>
+            <p>MANAGEMENT SYSTEM</p>
+        </div>
+    </div>
+
+    <nav class="menu">
+
+        <a href="dash.html">
+            <span class="icon">▣</span>
+            Dashboard
+        </a>
+
+        <a href=".html">
+            <span class="icon">▦</span>
+            Books
+        </a>
+
+        <a href="yyyy.html">
+            <span class="icon">♧</span>
+            Members
+        </a>
+
+        <a href="issue.html">
+            <span class="icon">♧</span>
+            Issue Book
+        </a>
+
+        <a href="Return.html" class="active">
+            <span class="icon">↶</span>
+            Return Book
+        </a>
+
+        <a href="#">
+            <span class="icon">▣</span>
+            Categories
+        </a>
+
+        <a href="#">
+            <span class="icon">♙</span>
+            Reports
+        </a>
+
+        <a href="setting.html">
+            <span class="icon">⚙</span>
+            Settings
+        </a>
+
+        <a href="#">
+            <span class="icon">◉</span>
+            Logout
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- MAIN -->
+<main class="main">
+
+    <h1>Return Book</h1>
+
+    <div class="breadcrumb">
+        <span>Dashboard</span>
+        <b>›</b>
+        <span>Return Book</span>
+    </div>
+
+
+    <div class="content">
+
+        <!-- FORM -->
+        <div class="card form-card">
+
+            <div class="field">
+
+                <label>
+                    Select Member <span class="required">*</span>
+                </label>
+
+                <div class="select-box">
+
+                    <select id="member">
+                        <option value="">Select member</option>
+                        <option value="Ali Khan">Ali Khan</option>
+                        <option value="Umar Khalil">Umar Khalil</option>
+                        <option value="Ahmed Raza">Ahmed Raza</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Select Issued Book <span class="required">*</span>
+                </label>
+
+                <div class="select-box">
+
+                    <select id="book">
+
+                        <option value="">Select issued book</option>
+
+                        <option value="Clean Code">
+                            Clean Code
+                        </option>
+
+                        <option value="Atomic Habits">
+                            Atomic Habits
+                        </option>
+
+                        <option value="The Alchemist">
+                            The Alchemist
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Return Date <span class="required">*</span>
+                </label>
+
+                <input
+                    type="date"
+                    id="returnDate"
+                >
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button
+                    class="return-btn"
+                    onclick="returnBook()"
+                >
+                    Return Book
+                </button>
+
+                <button
+                    class="reset-btn"
+                    onclick="resetForm()"
+                >
+                    Reset
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- INFORMATION -->
+        <div class="card info-card">
+
+            <h2>Book Information</h2>
+
+            <div class="info-row">
+                <span>Book Title</span>
+                <strong id="title">-</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Author</span>
+                <strong id="author">-</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Issue Date</span>
+                <strong id="issueDate">-</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Due Date</span>
+                <strong id="dueDate">-</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Fine (if any)</span>
+                <strong id="fine">$0.00</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+</div>
+
+
+<script>
+
+const books = {
+
+    "Clean Code":{
+        author:"Robert C. Martin",
+        issue:"20/05/2025",
+        due:"04/06/2025"
+    },
+
+    "Atomic Habits":{
+        author:"James Clear",
+        issue:"20/05/2025",
+        due:"04/06/2025"
+    },
+
+    "The Alchemist":{
+        author:"Paulo Coelho",
+        issue:"20/05/2025",
+        due:"04/06/2025"
+    }
+
+};
